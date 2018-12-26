@@ -1,0 +1,32 @@
+{
+  "name": "@writetome51/observable-service",
+  "version": "1.0.0",
+  "description": "Abstract typescript class that acts as a middleman between the class that creates the observable and the class that subscribes to the observable",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/writetome51/observable-service.git"
+  },
+  "keywords": [
+    "observable",
+    "subscription",
+    "typescript",
+    "abstract",
+    "class"
+  ],
+  "author": "Steve Thompson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/writetome51/observable-service/issues"
+  },
+  "homepage": "https://github.com/writetome51/observable-service#readme",
+  "dependencies": {
+    "rxjs": "~5.5.6",
+    "@writetome51/base-class": "~0.0.2",
+    "emptyable": "~1.0.0"
+  }
+}
