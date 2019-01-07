@@ -15,12 +15,12 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var base_class_1 = require("@writetome51/base-class");
 /*************
-This class acts as a middleman between the class that creates an observable and the class
+ This class acts as a middleman between the class that creates an observable and the class
  that subscribes to that observable.  That way those 2 classes don't have to know about each other.
  To use:  create a subclass of this, assign this._functionThatReturnsObservable
  a function (it can be a method from another class that creates the actual observable),
  and use the subclass as an injected service inside another class.
-**************/
+ **************/
 var ObservableService = /** @class */ (function (_super) {
     __extends(ObservableService, _super);
     function ObservableService() {

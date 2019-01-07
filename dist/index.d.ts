@@ -11,11 +11,11 @@ import { IEmptyable } from 'emptyable/IEmptyable';
  and use the subclass as an injected service inside another class.
  **************/
 
-export declare abstract class ObservableService<Type> extends BaseClass implements IEmptyable {
+export declare abstract class ObservableService extends BaseClass implements IEmptyable {
 
-	readonly observable: Observable<Type>;
-	private _observable: Observable<Type>;
+	readonly observable: Observable<any>;
 	protected _functionThatReturnsObservable: Function;
+	private _observable;
 
 
 	empty(): void;
