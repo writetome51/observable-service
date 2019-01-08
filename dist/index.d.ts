@@ -15,11 +15,11 @@ export declare abstract class ObservableService extends BaseClass implements IEm
 
 	readonly observable: Observable<any>;
 	protected _functionThatReturnsObservable: Function;
-	private _observable;
+	private __observable;
 
 
 	empty(): void;
 
 
-	private _return_observable;
+	private __return_observable;
 }

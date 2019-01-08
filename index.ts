@@ -15,21 +15,21 @@ export abstract class ObservableService extends BaseClass implements IEmptyable 
 
 	// public observable (read-only);
 	protected _functionThatReturnsObservable: Function; // Must be set before data can be returned.
-	private _observable: Observable<any>;
+	private __observable: Observable<any>;
 
 
 	empty(): void {
-		this._observable = undefined;
+		this.__observable = undefined;
 	}
 
 
 	get observable(): Observable<any> {
-		if (!(this._observable)) this._observable = this._return_observable();
-		return this._observable;
+		if (!(this.__observable)) this.__observable = this.__return_observable();
+		return this.__observable;
 	}
 
 
-	private _return_observable() {
+	private __return_observable() {
 		if (!(this._functionThatReturnsObservable)) {
 			throw new Error('The property \'_functionThatReturnsObservable\' must be set.');
 		}
