@@ -18,6 +18,7 @@ the observable.
 export class UsersObservableService extends ObservableService {
 
     constructor(
+        // the class that creates the observable:
         _userQueryService: UserQueryService
     ) {
         super();
@@ -38,29 +39,36 @@ export class UsersService {
         // inject the service:
         protected _usersObservableSvc: UsersObservableService
     ) {
+        this.__set_users_subscription();
+    }
+
+    forceRefresh(){
+        this._usersObservableSvc.empty();
+        this.__set_users_subscription();
+    }
+
+    private __set_users_subscription(){
         this.subscription = this._usersObservableSvc.observable.subscribe(
             (users) => this.users = users
         );
     }
 
 }
-
-// And that's it.
 ```
 
 ## Installation
 
 You must have npm installed first. Then, in the command line:
 
-    npm install @writetome51/unsubscribe-on-destroy-component
+    npm install @writetome51/observable-service
 
 ## Loading
 
     // if using TypeScript:
-    import { UnsubscribeOnDestroyComponent } from '@writetome51/unsubscribe-on-destroy-component';
+    import { ObservableService } from '@writetome51/observable-service';
     // if using ES5 JavaScript:
-    var  UnsubscribeOnDestroyComponent = 
-            require('@writetome51/unsubscribe-on-destroy-component').UnsubscribeOnDestroyComponent;
+    var ObservableService = 
+            require('@writetome51/observable-service').ObservableService;
     
 
 ## Properties (ordered by importance)
