@@ -17,33 +17,33 @@ var base_class_1 = require("@writetome51/base-class");
 /*************
  This class acts as a middleman between the class that creates an observable and the class
  that subscribes to that observable.  That way those 2 classes don't have to know about each other.
- To use:  create a subclass of this, assign this._functionThatReturnsObservable
- a function (it can be a method from another class that creates the actual observable),
- and use the subclass as an injected service inside another class.
+ To use:  create a subclass of this, and pass  _objectWithMethodThatReturnsObservable and the
+ nameOfMethodThatReturnsObservable to super() inside the constructor.
+ Then use the subclass as an injected service inside the class that subscribes to the observable.
  **************/
 var ObservableService = /** @class */ (function (_super) {
     __extends(ObservableService, _super);
-    function ObservableService() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    function ObservableService(_functionThatReturnsObservable) {
+        var _this = _super.call(this) || this;
+        _this._functionThatReturnsObservable = _functionThatReturnsObservable;
+        return _this;
     }
     ObservableService.prototype.empty = function () {
         this.__observable = undefined;
     };
     Object.defineProperty(ObservableService.prototype, "observable", {
         get: function () {
-            if (!(this.__observable))
-                this.__observable = this.__return_observable();
+            if (!(this.__observable)) {
+                if ((typeof this._functionThatReturnsObservable) !== 'function') {
+                    throw new Error('The property \'_functionThatReturnsObservable\' must be set to a function.');
+                }
+                this.__observable = this._functionThatReturnsObservable();
+            }
             return this.__observable;
         },
         enumerable: true,
         configurable: true
     });
-    ObservableService.prototype.__return_observable = function () {
-        if (!(this._functionThatReturnsObservable)) {
-            throw new Error('The property \'_functionThatReturnsObservable\' must be set.');
-        }
-        return this._functionThatReturnsObservable();
-    };
     return ObservableService;
 }(base_class_1.BaseClass));
 exports.ObservableService = ObservableService;
