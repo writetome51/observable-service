@@ -34,7 +34,7 @@ export class UsersSubscriptionService {
     subscription: Subscription;
 
     constructor(
-        // inject the service:
+        // inject the subclass of ObservableService:
         protected _usersObservableSvc: UsersObservableService
     ) {
         this.__set_users_subscription();
