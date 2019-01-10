@@ -1,6 +1,6 @@
 {
   "name": "@writetome51/observable-service",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Abstract typescript/javascript class that acts as an abstraction layer between the class that creates an observable and the class that subscribes to that observable",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
