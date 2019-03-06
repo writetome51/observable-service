@@ -17,5 +17,6 @@ subscription = observableSvc.observable.subscribe((data) => console.log(data));
 
 subscription.unsubscribe();
 
+// @ts-ignore
 console.log(subscription.isStopped);
 // prints 'true'

@@ -54,20 +54,6 @@ export class UsersSubscriptionService {
 
 }
 ```
-
-## Installation
-
-You must have npm installed first. Then, in the command line:
-
-    npm install @writetome51/observable-service
-
-## Loading
-
-    // if using TypeScript:
-    import { ObservableService } from '@writetome51/observable-service';
-    // if using ES5 JavaScript:
-    var ObservableService = 
-            require('@writetome51/observable-service').ObservableService;
     
 
 ## Constructor
@@ -143,6 +129,21 @@ protected   _runMethod_and_returnThis(
 ## Inheritance Chain
 
 ObservableService<--[BaseClass](https://github.com/writetome51/typescript-base-class#baseclass)
+
+
+## Installation
+
+You must have npm installed first. Then, in the command line:
+
+    npm install @writetome51/observable-service
+
+## Loading
+
+    // if using TypeScript:
+    import { ObservableService } from '@writetome51/observable-service';
+    // if using ES5 JavaScript:
+    var ObservableService = 
+            require('@writetome51/observable-service').ObservableService;
 
 
 ## License
