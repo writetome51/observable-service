@@ -7,10 +7,13 @@ That way those 2 classes don't have to know about each other.
 It provides the property `.observable`, which is intended to be accessed in the class  
 that subscribes to it.
 
+<b>NOTE: This version of ObservableService is intended for use with [RxJS](https://rxjs-dev.firebaseapp.com/) 6.1.x   
+and up.</b>
+
 To use:  create a subclass of this, call super() in the constructor, and pass into it a  
 function that returns an observable (preferably an imported function or class method),  
 and use the subclass inside another class, which then calls `.subscribe()` on  
-the observable.
+ `this.observable`.
 
 ## Example
 ```

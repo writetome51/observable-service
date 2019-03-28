@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { BaseClass } from '@writetome51/base-class';
 import { IEmptyable } from 'emptyable/IEmptyable';
 

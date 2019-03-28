@@ -1,6 +1,6 @@
 {
   "name": "@writetome51/observable-service",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "Abstract typescript/javascript class that acts as an abstraction layer between the class that creates an observable and the class that subscribes to that observable",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/writetome51/observable-service#readme",
   "dependencies": {
-    "rxjs": "^5.5.6",
+    "rxjs": "^6.1.0",
     "@writetome51/base-class": "~0.0.3",
     "emptyable": "~1.0.0"
   }
