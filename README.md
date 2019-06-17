@@ -2,10 +2,7 @@
 
 An abstract TypeScript/JavaScript class which acts as an abstraction layer between  
 the class that creates an observable and the class that subscribes to that observable.  
-That way those 2 classes don't have to know about each other.  
-
-It provides the property `.observable`, which is intended to be accessed in the class  
-that subscribes to it.
+That way those 2 classes don't have to know about each other.
 
 <b>NOTE: This version of ObservableService is intended for use with [RxJS](https://rxjs-dev.firebaseapp.com/) 6.1.x   
 and up.</b>
@@ -13,7 +10,7 @@ and up.</b>
 To use:  create a subclass of this, call super() in the constructor, and pass into it a  
 function that returns an observable (preferably an imported function or class method),  
 and use the subclass inside another class, which then calls `.subscribe()` on  
- `this.observable`.
+the subclass instance.
 
 ## Example
 ```
@@ -38,19 +35,19 @@ export class UsersSubscriptionService {
 
     constructor(
         // inject the subclass of ObservableService:
-        protected _usersObservableSvc: UsersObservableService
+        protected _usersObservable: UsersObservableService
     ) {
         this.__set_users_subscription();
     }
 
     forceRefresh(){
         // This forces the observable to reset itself next time it's accessed:
-        this._usersObservableSvc.empty();
+        this._usersObservable.empty();
         this.__set_users_subscription();
     }
 
     private __set_users_subscription(){
-        this.subscription = this._usersObservableSvc.observable.subscribe(
+        this.subscription = this._usersObservable.subscribe(
             (users) => this.users = users
         );
     }
@@ -66,25 +63,22 @@ constructor(protected _functionThatReturnsObservable: Function)
 
 ## Properties
 ```
-public observable : Observable  (read-only)
-    // Automatically assigns itself the result of 
-    // this._functionThatReturnsObservable().
-
 protected _functionThatReturnsObservable: Function;
     // You probably won't need to access this property, but just in case you
     // want to change its value, it's available.
 
 public className : string (read-only)
-    // Not important. Inherited from BaseClass (see Inheritance Chain below).
 ```
 
 ## Methods
 ```
+subscribe(dataHandler: (data?: any) => void): Subscription
+
 empty(): void
-    // sets this.observable to undefined.  Useful if you have to force-refresh
-    // data.  When you access this.observable after calling this.empty(), 
-    // this._functionThatReturnsObservable() is called again and this.observable is 
-    // assigned the result.
+    // sets the observable to undefined.  Useful if you have to force-refresh
+    // data.  When you call this.subscribe() after calling this.empty(), 
+    // this._functionThatReturnsObservable() is called again, the observable is 
+    // assigned the result, and then .subscribe() is called on it.
 ```
 The methods below are not important to know about in order to use this  
 class.  They're inherited from [BaseClass](https://github.com/writetome51/typescript-base-class#baseclass) .
@@ -120,12 +114,7 @@ protected   _returnThis_after(voidExpression: any) : this
     // voidExpression is executed, then function returns this.
     // Even if voidExpression returns something, the returned data isn't used.
 
-protected   _runMethod_and_returnThis(
-    callingObject, 
-    method: Function, 
-    methodArgs: any[], 
-    additionalAction?: Function // takes the result returned by method as an argument.
-) : this
+
 ```
 
 

@@ -25,22 +25,25 @@ var ObservableService = /** @class */ (function (_super) {
         _this._functionThatReturnsObservable = _functionThatReturnsObservable;
         return _this;
     }
-    ObservableService.prototype.empty = function () {
-        this.__observable = undefined;
-    };
-    Object.defineProperty(ObservableService.prototype, "observable", {
+    Object.defineProperty(ObservableService.prototype, "__observable", {
         get: function () {
-            if (!(this.__observable)) {
+            if (!(this.___observable)) {
                 if ((typeof this._functionThatReturnsObservable) !== 'function') {
                     throw new Error('The property \'_functionThatReturnsObservable\' must be set to a function.');
                 }
-                this.__observable = this._functionThatReturnsObservable();
+                this.___observable = this._functionThatReturnsObservable();
             }
-            return this.__observable;
+            return this.___observable;
         },
         enumerable: true,
         configurable: true
     });
+    ObservableService.prototype.subscribe = function (dataHandler) {
+        return this.__observable.subscribe(dataHandler);
+    };
+    ObservableService.prototype.empty = function () {
+        this.___observable = undefined;
+    };
     return ObservableService;
 }(base_class_1.BaseClass));
 exports.ObservableService = ObservableService;
