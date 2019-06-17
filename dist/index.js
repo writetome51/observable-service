@@ -27,13 +27,13 @@ var ObservableService = /** @class */ (function (_super) {
     }
     Object.defineProperty(ObservableService.prototype, "__observable", {
         get: function () {
-            if (!(this.___observable)) {
+            if (!(this.____observable)) {
                 if ((typeof this._functionThatReturnsObservable) !== 'function') {
                     throw new Error('The property \'_functionThatReturnsObservable\' must be set to a function.');
                 }
-                this.___observable = this._functionThatReturnsObservable();
+                this.____observable = this._functionThatReturnsObservable();
             }
-            return this.___observable;
+            return this.____observable;
         },
         enumerable: true,
         configurable: true
@@ -42,7 +42,7 @@ var ObservableService = /** @class */ (function (_super) {
         return this.__observable.subscribe(dataHandler);
     };
     ObservableService.prototype.empty = function () {
-        this.___observable = undefined;
+        this.____observable = undefined;
     };
     return ObservableService;
 }(base_class_1.BaseClass));

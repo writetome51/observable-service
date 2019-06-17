@@ -1,8 +1,7 @@
 # ObservableService
 
 An abstract TypeScript/JavaScript class which acts as an abstraction layer between  
-the class that creates an observable and the class that subscribes to that observable.  
-That way those 2 classes don't have to know about each other.
+the function that creates an observable and the class that subscribes to that observable.  
 
 <b>NOTE: This version of ObservableService is intended for use with [RxJS](https://rxjs-dev.firebaseapp.com/) 6.1.x   
 and up.</b>
@@ -13,13 +12,16 @@ and use the subclass inside another class, which then calls `.subscribe()` on
 the subclass instance.
 
 ## Example
-```
+<details>
+<summary>view example</summary>
+
+```ts
 // Create a subclass...
 export class UsersObservableService extends ObservableService {
 
     constructor(
         // an object with method that returns observable:
-        userQueryService: UserQueryService,
+        userQueryService
     ) {
         // pass the method to ObservableService constructor:
         super(userQueryService.getUsersObservable);
@@ -27,7 +29,8 @@ export class UsersObservableService extends ObservableService {
 
 }
 
-// Now this class calls .subscribe() to access the data...
+
+// Now another class calls .subscribe() to access the data...
 export class UsersSubscriptionService {
 
     users: User[];
@@ -35,35 +38,37 @@ export class UsersSubscriptionService {
 
     constructor(
         // inject the subclass of ObservableService:
-        protected _usersObservable: UsersObservableService
+        usersObservable: UsersObservableService
     ) {
-        this.__set_users_subscription();
+        this.set_users_subscription();
     }
-
-    forceRefresh(){
-        // This forces the observable to reset itself next time it's accessed:
-        this._usersObservable.empty();
-        this.__set_users_subscription();
-    }
-
-    private __set_users_subscription(){
-        this.subscription = this._usersObservable.subscribe(
+    
+    set_users_subscription(){
+        // call .subscribe()
+        this.subscription = this.usersObservable.subscribe(
             (users) => this.users = users
         );
     }
 
+    forceRefresh(){
+        // This forces the observable to reset itself next time it's accessed:
+        this.usersObservable.empty();
+        this.set_users_subscription();
+    }
+
 }
 ```
+</details>
     
 
 ## Constructor
-```
+```ts
 constructor(protected _functionThatReturnsObservable: Function)
 ```
 
 ## Properties
-```
-protected _functionThatReturnsObservable: Function;
+```ts
+protected _functionThatReturnsObservable: Function
     // You probably won't need to access this property, but just in case you
     // want to change its value, it's available.
 
@@ -71,7 +76,10 @@ public className : string (read-only)
 ```
 
 ## Methods
-```
+<details>
+<summary>view methods</summary>
+
+```ts
 subscribe(dataHandler: (data?: any) => void): Subscription
 
 empty(): void
@@ -82,7 +90,7 @@ empty(): void
 ```
 The methods below are not important to know about in order to use this  
 class.  They're inherited from [BaseClass](https://github.com/writetome51/typescript-base-class#baseclass) .
-```
+```ts
 protected   _createGetterAndOrSetterForEach(
                   propertyNames: string[],
                   configuration: IGetterSetterConfiguration
@@ -114,8 +122,14 @@ protected   _returnThis_after(voidExpression: any) : this
     // voidExpression is executed, then function returns this.
     // Even if voidExpression returns something, the returned data isn't used.
 
-
+protected   _errorIfPropertyHasNoValue(
+                property: string, // can contain dot-notation, i.e., 'property.subproperty'
+                propertyNameInError? = ''
+            ) : void
+    // If value of this[property] is undefined or null, it triggers fatal error:
+    // `The property "${propertyNameInError}" has no value.`
 ```
+</details>
 
 
 ## Inheritance Chain
@@ -125,18 +139,16 @@ ObservableService<--[BaseClass](https://github.com/writetome51/typescript-base-c
 
 ## Installation
 
-You must have npm installed first. Then, in the command line:
-
-    npm install @writetome51/observable-service
+`npm i  @writetome51/observable-service`
 
 ## Loading
-
-    // if using TypeScript:
-    import { ObservableService } from '@writetome51/observable-service';
-    // if using ES5 JavaScript:
-    var ObservableService = 
-            require('@writetome51/observable-service').ObservableService;
-
+```ts
+// if using TypeScript:
+import { ObservableService } from '@writetome51/observable-service';
+// if using ES5 JavaScript:
+var ObservableService = 
+    require('@writetome51/observable-service').ObservableService;
+```
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)

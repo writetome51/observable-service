@@ -11,7 +11,7 @@ import { IEmptyable } from 'emptyable/IEmptyable';
 export abstract class ObservableService extends BaseClass implements IEmptyable {
 
 	// private  __observable (read-only);
-	private ___observable: Observable<any>;
+	private ____observable: Observable<any>;
 
 
 	constructor(
@@ -22,13 +22,13 @@ export abstract class ObservableService extends BaseClass implements IEmptyable 
 
 
 	private get __observable(): Observable<any> {
-		if (!(this.___observable)) {
+		if (!(this.____observable)) {
 			if ((typeof this._functionThatReturnsObservable) !== 'function') {
 				throw new Error('The property \'_functionThatReturnsObservable\' must be set to a function.');
 			}
-			this.___observable = this._functionThatReturnsObservable();
+			this.____observable = this._functionThatReturnsObservable();
 		}
-		return this.___observable;
+		return this.____observable;
 	}
 
 
@@ -38,7 +38,7 @@ export abstract class ObservableService extends BaseClass implements IEmptyable 
 
 
 	empty(): void {
-		this.___observable = undefined;
+		this.____observable = undefined;
 	}
 
 
