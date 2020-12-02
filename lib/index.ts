@@ -1,45 +1,36 @@
-import { Observable, Subscription } from 'rxjs';
-import { BaseClass } from '@writetome51/base-class';
-import { IEmptyable } from 'emptyable/IEmptyable';
+import { Subscribable, Unsubscribable } from 'rxjs';
 
 
 /*************
- This class acts as a middleman between the class that creates an observable and the class
- that subscribes to that observable.  That way those 2 classes don't have to know about each other.
+ This class acts as a middleman between the provider of an observable and the subscriber to that
+ observable.
  **************/
 
-export abstract class ObservableService extends BaseClass implements IEmptyable {
+export abstract class ObservableService<T> {
 
-	// private  __observable (read-only);
-	private ____observable: Observable<any>;
+	private ____observable: Subscribable<T>;
 
 
 	constructor(
-		protected _functionThatReturnsObservable: Function
+		private __observableProvider: { getObservable: () => Subscribable<T> }
 	) {
-		super();
 	}
 
 
-	private get __observable(): Observable<any> {
+	private get __observable() {
 		if (!(this.____observable)) {
-			if ((typeof this._functionThatReturnsObservable) !== 'function') {
-				throw new Error('The property \'_functionThatReturnsObservable\' must be set to a function.');
+			if ((typeof this.__observableProvider.getObservable) !== 'function') {
+				throw new Error("The property '_observableProvider' must have a method" +
+					" 'getObservable()'");
 			}
-			this.____observable = this._functionThatReturnsObservable();
+			this.____observable = this.__observableProvider.getObservable();
 		}
 		return this.____observable;
 	}
 
 
-	subscribe(dataHandler: (data?: any) => void): Subscription {
-		return this.__observable.subscribe(dataHandler);
+	subscribe(observer): Unsubscribable {
+		return this.__observable.subscribe(observer);
 	}
-
-
-	empty(): void {
-		this.____observable = undefined;
-	}
-
 
 }
