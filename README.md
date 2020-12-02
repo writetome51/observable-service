@@ -6,10 +6,6 @@ the provider of an observable and the class that subscribes to that observable.
 <b>NOTE: This version of ObservableService is intended for use with [RxJS](https://rxjs-dev.firebaseapp.com/) 6.1.x   
 and up.</b>
 
-To use:  create a subclass of this, call super() in the constructor, pass into it an  
-object that returns an observable, and use the subclass inside another class,  
-which then calls `.subscribe()` on the subclass instance.
-
 ## Example
 <details>
 <summary>view example</summary>
